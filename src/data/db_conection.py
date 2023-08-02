@@ -21,4 +21,4 @@ def connection():
         print('Error al intentar conectarse a la base de "provmicrosql02.database.windows.net"')
         traceback.print_exc()
         
-# connection()
+connection()

@@ -60,7 +60,37 @@ def obtener_datos_ejecutivos():
         for row in rows:
             data.append(dict(zip(column_names, row)))
         return jsonify(data)
+    
 
+@app.route('/jefatura_comercial', methods=['GET'])
+@requerir_autenticacion
+def obtener_jefatura_comercial():
+    with connection.connection() as conexion:
+        cursor = conexion.cursor()
+        categoria = 'JC - Jefatura Comercial'
+        query_jefatura_comercial = f"{query} WHERE category = ?"
+        cursor.execute(query_jefatura_comercial, (categoria,))
+        rows = cursor.fetchall()
+        data = []
+        column_names = [column[0] for column in cursor.description]
+        for row in rows:
+            data.append(dict(zip(column_names, row)))
+        return jsonify(data)
+    
+@app.route('/gerentes_zonales', methods=['GET'])
+@requerir_autenticacion
+def obtener_gerentes_zonales():
+    with connection.connection() as conexion:
+        cursor = conexion.cursor()
+        categoria = 'GZ - Gerente Zonal'
+        query_gerentes_zonales = f"{query} WHERE category = ?"
+        cursor.execute(query_gerentes_zonales, categoria)
+        rows = cursor.fetchall()
+        data = []
+        column_names = [column[0] for column in cursor.description]
+        for row in rows:
+            data.append(dict(zip(column_names, row)))
+        return jsonify(data)
 
 if __name__ == '__main__':
     print('Programa corriendo con exito')
