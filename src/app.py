@@ -91,6 +91,10 @@ def obtener_gerentes_zonales():
         for row in rows:
             data.append(dict(zip(column_names, row)))
         return jsonify(data)
+    
+@app.route('/hola')
+def hello_world():
+    return 'Hola Mundo'
 
 if __name__ == '__main__':
     print('Programa corriendo con exito')
