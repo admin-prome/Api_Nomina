@@ -94,6 +94,7 @@ def obtener_gerentes_zonales():
     
 @app.route('/hola')
 def hello_world():
+    print('Holaaaaaaaaaaaaaaaaaaaaaaaaa')
     return 'Hola Mundo'
 
 if __name__ == '__main__':
