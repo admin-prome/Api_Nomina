@@ -92,6 +92,30 @@ def obtener_gerentes_zonales():
             data.append(dict(zip(column_names, row)))
         return jsonify(data)
     
+@app.route('/agregar_observacion/<int:id>', methods=['POST'])
+@requerir_autenticacion
+def agregar_observacion(id):
+    observacion = request.json.get('observation')
+    if observacion is None:
+        return jsonify({'mensaje': 'Observación no proporcionada'}), 400
+
+    with connection.connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute("UPDATE tec_nomina SET observation = ? WHERE id = ?", (observacion, id))
+        conexion.commit()
+
+    return jsonify({'mensaje': 'Observación agregada exitosamente'})
+
+@app.route('/eliminar_observacion/<int:id>', methods=['POST'])
+@requerir_autenticacion
+def eliminar_observacion(id):
+    with connection.connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute("UPDATE tec_nomina SET observation = NULL WHERE id = ?", (id,))
+        conexion.commit()
+
+    return jsonify({'mensaje': 'Observación eliminada exitosamente'})
+    
 @app.route('/hola')
 def hello_world():
     return 'Hola Mundo'
