@@ -10,7 +10,7 @@ dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(dotenv_path)
 
 USER = os.getenv("USER_API")
-PASS = os.getenv("PASSWORD_API")
+PSW = os.getenv("PASSWORD_API")
 conexion = connection.connection()
 query = query.datos()
 
@@ -18,7 +18,7 @@ query = query.datos()
 app = Flask(__name__)
 
 def verificar_autenticacion(username, password):
-    return username == USER and password == PASS
+    return username == USER and password == PSW
 
 
 def requerir_autenticacion(f):
